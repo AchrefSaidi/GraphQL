@@ -1,0 +1,57 @@
+enum Role{
+    USER
+    ADMIN
+}
+
+type user{
+    id: Int,
+    name: String,
+    email: String,
+    role: Role,
+    cvs: [cv]
+}
+
+type cv{
+    id: Int,
+    name: String,
+    age: Int,
+    job: String,
+    user: user,
+    skills:[skill]
+}
+type skill{
+    id: Int,
+    designation: String,
+    cvs:[cv]
+}
+
+type Query {
+    hello(name: String,age: Int): String!,
+    users:[user],
+    cvs:[cv],
+    skills:[skill],
+    cvById(id: Int):cv,
+}
+input cvInput{
+    name: String,
+    age: Int,
+    job: String,
+    idUser:Int
+}
+input cvUpdate{
+    id: Int,
+    name: String,
+    age: Int,
+    job: String,
+    idUser:Int
+}
+type Mutation {
+    addCv(input: cvInput) :[cv],
+    updateCv(input: cvUpdate):cv,
+    deleteCv(id: Int):[cv]
+}
+type Subscription{
+    cvAdded:cv,
+    cvUpdated:cv,
+    cvDeleted:[cv]
+}
